@@ -1,0 +1,2 @@
+pyuic5 DownloadManager.ui > DownloadManager.py
+pyrcc5 -o photo_rc.py photo.qrc

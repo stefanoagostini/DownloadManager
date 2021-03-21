@@ -1,0 +1,5 @@
+
+https://github.com/Pythondeveloper6/PyQt5-Download-Manager/archive/refs/heads/master.zip
+
+https://github.com/stefanoagostini/chess_tests/archive/refs/heads/master.zip
+
