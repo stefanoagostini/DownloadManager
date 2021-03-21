@@ -29,7 +29,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="addNewDownload">
        <attribute name="title">
@@ -58,7 +58,7 @@
             </property>
             <property name="icon">
              <iconset resource="photo.qrc">
-              <normaloff>:/icons/home_download.png</normaloff>:/icons/home_download.png</iconset>
+              <normaloff>:/icons/download.png</normaloff>:/icons/download.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -133,19 +133,44 @@
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="historyLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
           <item>
            <layout class="QHBoxLayout" name="itemH1">
             <item>
              <widget class="QLabel" name="labelH1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>TextLabel</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QProgressBar" name="progressBarH1">
-              <property name="value">
-               <number>24</number>
+             <widget class="QPushButton" name="pushButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Apri Cartella</string>
+              </property>
+              <property name="icon">
+               <iconset resource="photo.qrc">
+                <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
               </property>
              </widget>
             </item>

@@ -1,29 +1,36 @@
 from observable import Observable
+from downloadThread import DownloadThread
+
 
 class Model:
     def __init__(self):
-        self.downloads = []
-        self.destFolder = ""
+        self.activedownloads = []
+        self.history = []
+        self.fileName = ""
         self.destPath = ""
         self.url = ""
-    
-    def startDownload(self, ):
-        pass
+        self.error = Observable("")
 
-    # def observe(self, slot):
-    #     self.destPath.observe(slot)
+    
+    def observeError(self, slot):
+        self.error.observe(slot)
 
     def setUrl(self, value):
         self.url = value
-        print(self.url)
 
-    def setDestFolder(self, value):
-        self.destFolder = value
-        print(self.destFolder)
+    def setFileName(self, value):
+        self.fileName = value
 
 
     def setDestPath(self, value):
         self.destPath = value
-        print(self.destPath)
     
+    def download(self, createUIElement):
+        if self.url=='' or self.destPath=='':
+            self.error.value = "Inserisci una url o una cartella di destinazione valida"
+        else:
+            createUIElement()
+            t = DownloadThread(url=self.url, dest=self.destPath, fileName=self.fileName)
+            t.start()
+
 M = Model()

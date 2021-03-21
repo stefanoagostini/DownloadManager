@@ -1,6 +1,8 @@
 import logging
 import threading
 import time
+import os
+
 
 from pySmartDL import SmartDL
 
@@ -9,12 +11,13 @@ logging.basicConfig(level=logging.DEBUG,
                     )
 
 class DownloadThread(threading.Thread):
-    def __init__(self, group=None, target=None, name=None, args=(), url=None, dest=None):
+    def __init__(self, group=None, target=None, name=None, args=(), url=None, dest=None, fileName=None):
         threading.Thread.__init__(self, group=group, target=target, name=name)
         self.args = args
         self.url = url
         self.dest = dest
-        self.download = SmartDL(url, dest, progress_bar=False)
+        self.fileName = fileName
+        self.download = SmartDL(self.url, progress_bar=False, threads=1)
         return
 
     def run(self):
@@ -23,11 +26,23 @@ class DownloadThread(threading.Thread):
             logging.debug("Progress: " + str(self.download.get_progress()*100))
             time.sleep(0.2)
         if self.download.isSuccessful():
+            logging.debug("Progress: " + str(self.download.get_progress()*100))
             logging.debug("downloaded file to '%s'" % self.download.get_dest())
-            logging.debug("download task took %ss" % self.download.get_dl_time(human=True))
+            if (self.fileName is not None):
+                self.path = self.dest +"/"+ self.fileName
+            else:
+                self.path = self.dest +"/"+ getFilenameFromUrl()
+            self.renameFile(self.download.get_dest(), self.path)
+                
         else:
             print("There were some errors:")
             for e in self.download.get_errors():
                 print(str(e))
-        self.path = self.download.get_dest()
-        return self.path
+        return
+    
+    def renameFile(self, old, new):
+        os.rename(old , new)
+
+    def getFilenameFromUrl(self):
+        filename = self.url[self.url.rfind("/") + 1:]
+        return str(filename)

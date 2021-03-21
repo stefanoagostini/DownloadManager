@@ -16,20 +16,42 @@ class DownloadManager(QMainWindow):
         # Set up the user interface from Designer.
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.initUI()
         self.handleButtons()
+        self.handleObserverAndObservable()
 
-        # Set up Observable for model
+    # Set up Observable for model
+    def handleObserverAndObservable(self):
         self.url = Observable(self.ui.urlName.text())
         self.url.observe(M.setUrl)
-        self.destFolder = Observable(self.ui.folderName.text())
-        self.destFolder.observe(M.setDestFolder)
+
+        self.fileName = Observable(self.ui.folderName.text())
+        self.fileName.observe(M.setFileName)
+
         self.destPath = Observable(self.ui.saveLocation.text())
         self.destPath.observe(M.setDestPath)
-    
-    def initUI(self):
-        pass
 
+        M.observeError(self.createMessageError)
+    
+    def createMessageError(self, value):
+        QMessageBox.warning(self, 'Errore', value)
+    
+    def createActiveDownload(self,):
+        label = QLabel(self.fileName.value)
+        progressBar = QProgressBar();
+        qhBoxLayout = QHBoxLayout()
+        qhBoxLayout.addWidget(label)
+        qhBoxLayout.addWidget(progressBar)
+        self.ui.activeDownloadListLayout.addLayout(qhBoxLayout)
+    
+    def createHistoryDownload(self,):
+        label = QLabel(self.fileName.value)
+        progressBar = QProgressBar();
+        qhBoxLayout = QHBoxLayout()
+        qhBoxLayout.addWidget(label)
+        qhBoxLayout.addWidget(progressBar)
+        self.ui.historyLayout.addLayout(qhBoxLayout)
+    
+    # Set up all the buttons in the ui to connect with functions
     def handleButtons(self):
         self.ui.downloadButton.clicked.connect(self.download)
         self.ui.browseButton.clicked.connect(self.handleBrowse)
@@ -41,34 +63,16 @@ class DownloadManager(QMainWindow):
         self.destPath.value = QFileDialog.getExistingDirectory(self, caption ="Apri Cartella", directory=".")
         self.ui.saveLocation.setText(str(self.destPath.value))
 
-    #da spostare nel modello
-    def saveBrowse(self):
-        pass
-
 
     #da spostare nel modello
     def download(self):
-        print('Start the download')
         self.url.value = self.ui.urlName.text()
-        self.destFolder.value = self.ui.folderName.text()
+        self.fileName.value = self.ui.folderName.text()
 
-        if self.url.value=='' or self.destPath.value=='':
-            QMessageBox.warning(self, 'Errore', 'Inserisci una url o una cartella di destinazione valida')
-        else:
-            saveLocation = self.destPath.value + "\\" + self.destFolder.value + "\\"
+        M.download(self.createActiveDownload)
 
-            label = QLabel(self.destFolder.value)
-            progressBar = QProgressBar();
-            qhBoxLayout = QHBoxLayout()
-            qhBoxLayout.addWidget(label)
-            qhBoxLayout.addWidget(progressBar)
-            self.ui.activeDownloadListLayout.addLayout(qhBoxLayout)
-
-            t = DownloadThread(url=self.url.value, dest=saveLocation)
-            t.start()
-
-            self.ui.folderName.setText('')
-            self.ui.urlName.setText('')
+        self.ui.folderName.setText('')
+        self.ui.urlName.setText('')
 
 
 
