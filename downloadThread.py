@@ -18,7 +18,6 @@ class DownloadThread(threading.Thread):
         self.dest = dest
         self.fileName = fileName
         self.download = SmartDL(self.url, progress_bar=False, threads=1)
-        return
 
     def run(self):
         self.download.start(blocking=False)
@@ -33,7 +32,7 @@ class DownloadThread(threading.Thread):
             else:
                 self.path = self.dest +"/"+ getFilenameFromUrl()
             self.renameFile(self.download.get_dest(), self.path)
-                
+
         else:
             print("There were some errors:")
             for e in self.download.get_errors():
@@ -46,3 +45,4 @@ class DownloadThread(threading.Thread):
     def getFilenameFromUrl(self):
         filename = self.url[self.url.rfind("/") + 1:]
         return str(filename)
+
