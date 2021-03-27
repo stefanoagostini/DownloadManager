@@ -1,36 +1,67 @@
-from observable import Observable
-from downloadThread import DownloadThread
+import logging
+import os
 
+from pySmartDL import SmartDL
 
-class Model:
-    def __init__(self):
-        self.activedownloads = []
-        self.history = []
-        self.fileName = ""
-        self.destPath = ""
-        self.url = ""
-        self.error = Observable("")
+logging.basicConfig(level=logging.DEBUG,
+                    format='(%(threadName)-10s) %(message)s',
+                    )
+
+class Download:
+    def __init__(self, url, fileName, destPath):  
+        self.url = url
+        self.destPath = destPath
+        self.fileName = fileName
+        self.finished = False
+        self.downloadCancelled = False
+        self.download = SmartDL(self.url, progress_bar=False, threads=1)
+        self.status = None
+        self.progressStatus = 0
 
     
-    def observeError(self, slot):
-        self.error.observe(slot)
-
-    def setUrl(self, value):
-        self.url = value
-
-    def setFileName(self, value):
-        self.fileName = value
-
-
-    def setDestPath(self, value):
-        self.destPath = value
+    def start(self):
+        self.download.start(blocking=False)
+        
     
-    def download(self, createUIElement):
-        if self.url=='' or self.destPath=='':
-            self.error.value = "Inserisci una url o una cartella di destinazione valida"
+    def pause(self):
+        if (self.download.get_status() == "downloading"):
+            self.download.pause()
+        elif (self.download.get_status() == "paused"):
+            self.download.resume()
+    
+
+    def stop(self):
+        self.download.resume()
+        self.download.stop()
+        self.downloadCancelled = True
+
+
+    def getInfo(self):
+        self.progressStatus = self.download.get_progress()*100;
+        logging.debug("Progress: " + str(self.progressStatus))
+        self.status = self.download.get_status()
+        if (not self.downloadCancelled):
+            if self.download.isFinished():
+                if self.download.isSuccessful():
+                    if self.finished == False:
+                        self.finished = True
+                        logging.debug("downloaded file to '%s'" % self.download.get_dest())
+                        if (self.fileName is not None):
+                            self.path = self.destPath +"/"+ self.fileName
+                        else:
+                            self.path = self.destPath +"/"+ self.getFilenameFromUrl()
+                        self.renameFile(self.download.get_dest(), self.path)
         else:
-            createUIElement()
-            t = DownloadThread(url=self.url, dest=self.destPath, fileName=self.fileName)
-            t.start()
+            self.status = "cancelled"
+        return self.progressStatus, self.status
 
-M = Model()
+    
+    def getFilenameFromUrl(self):
+        filename = self.url[self.url.rfind("/") + 1:]
+        return str(filename)
+    
+    
+    def renameFile(self, old, new):
+        os.rename(old , new)
+    
+

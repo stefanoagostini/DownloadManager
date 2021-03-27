@@ -7,3 +7,6 @@ https://github.com/stefanoagostini/DownloadManager/archive/refs/heads/master.zip
 
 
 https://www.repstatic.it/content/nazionale/img/2021/03/19/170553242-8907e82c-c422-4cd0-b488-ad480661142b.jpg
+
+
+https://releases.ubuntu.com/20.10/ubuntu-20.10-desktop-amd64.iso

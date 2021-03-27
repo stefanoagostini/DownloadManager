@@ -85,44 +85,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
-         <layout class="QVBoxLayout" name="activeDownloadListLayout">
-          <item>
-           <layout class="QHBoxLayout" name="item1">
-            <item>
-             <widget class="QLabel" name="label1">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QProgressBar" name="progressBar1">
-              <property name="value">
-               <number>24</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="item2">
-            <item>
-             <widget class="QLabel" name="label2">
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QProgressBar" name="progressBar2">
-              <property name="value">
-               <number>24</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+         <layout class="QVBoxLayout" name="activeDownloadListLayout"/>
         </item>
        </layout>
       </widget>
@@ -136,46 +99,6 @@
           <property name="spacing">
            <number>6</number>
           </property>
-          <item>
-           <layout class="QHBoxLayout" name="itemH1">
-            <item>
-             <widget class="QLabel" name="labelH1">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Apri Cartella</string>
-              </property>
-              <property name="icon">
-               <iconset resource="photo.qrc">
-                <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>25</width>
-                <height>25</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
          </layout>
         </item>
        </layout>
