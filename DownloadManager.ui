@@ -89,16 +89,68 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="history">
+      <widget class="QWidget" name="legenda">
        <attribute name="title">
-        <string>Cronologia</string>
+        <string>Legenda</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <layout class="QVBoxLayout" name="historyLayout">
+         <layout class="QVBoxLayout" name="legendaLayout">
           <property name="spacing">
            <number>6</number>
           </property>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Ecco il significato dei colori nella tab Download Attivi:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="styleSheet">
+             <string notr="true">QLabel { color : black; font-size: 22px; }</string>
+            </property>
+            <property name="text">
+             <string>Nero: in downlaod</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="styleSheet">
+             <string notr="true">QLabel { color : green; font-size: 22px; }</string>
+            </property>
+            <property name="text">
+             <string>Verde: downlaod completato con successo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="styleSheet">
+             <string notr="true">QLabel { color : orange; font-size: 22px; }</string>
+            </property>
+            <property name="text">
+             <string>Arancione: in pausa</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="styleSheet">
+             <string notr="true">QLabel { color : red; font-size: 22px; }</string>
+            </property>
+            <property name="text">
+             <string>Rosso: errore durante il download o cancellato</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
