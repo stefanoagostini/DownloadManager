@@ -71,7 +71,7 @@
           <item row="0" column="0" colspan="3">
            <widget class="QLineEdit" name="folderName">
             <property name="placeholderText">
-             <string>Inserisci il nome del download</string>
+             <string>Inserisci il nome del download (non dimenticare il formato del file)</string>
             </property>
            </widget>
           </item>
